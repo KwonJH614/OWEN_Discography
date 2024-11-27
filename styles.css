@@ -1,0 +1,261 @@
+body {
+    background-color: #1b1b1b;
+    margin: 0;
+    font-family: Bebas Neue, sans-serif;
+    -ms-overflow-style: none;
+}
+
+body {
+    font-family: 'Bebas Neue', sans-serif;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 75px;
+    padding: 1rem;
+    color: white;
+    background: #111111eb 50%;
+    border-bottom: 10px solid rgba(0,0,0,50);
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    gap: 76vw;
+    align-items: center;
+    z-index: 10;
+    font-size: 50px;
+    transition: height ease-in-out 0.3s, gap ease-in-out 0.5s, font-size ease-in-out 0.5s;
+}
+
+.hide {
+    gap: 20px;
+    justify-content: center;
+    font-size: 30px;
+    height: 10px;
+}
+
+header a {
+    color: rgba(240, 240, 240, .94);
+    text-decoration: none;
+    margin-left: 30px;
+    transition: color 0.3s;
+}
+
+header a:hover {
+    color: rgb(90, 90, 90);
+}
+
+.bebas-neue-regular {
+    font-family: "Bebas Neue", sans-serif;  
+    font-weight: 400;
+    font-style: normal;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+h1, p {
+    color: #eeeeee;
+}
+
+.mainPage, .section {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+}
+
+.preview {
+    width: 65vw;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 70px;
+}
+
+.preview img {
+    max-width: 320px;
+    height: auto;
+}
+
+#section1 .preview img {
+    animation: none;
+}
+
+.preview div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+    gap:    0px;
+}
+
+#section3 .preview {
+    align-items: center;
+    justify-content: end;
+    flex-direction: row-reverse; 
+}
+
+#section3 .preview div {
+    text-align: right;
+    align-items: flex-end;
+}
+
+.preview h1 {
+    font-size: 80px;
+    margin: 0;
+    color: #ffffff;
+    margin-bottom: -20px;
+}
+
+.preview p {
+    font-size: 50px;
+    margin: 0;
+    color: #b8b8b8;
+    margin-bottom: -10px;
+}
+
+.preview a {
+    font-size: 50px;
+    text-decoration: none;
+    color: rgba(240, 240, 240, .94);
+}
+
+.albums {
+    margin: auto;
+    margin-top: 30vh;
+    width: 70vw;
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 40px;
+    row-gap: 30px;
+    justify-content: space-evenly;
+}
+
+.album {
+    width: 120px;
+    height: 160px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    text-align: center;
+}
+
+.album img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    transition: opacity 0.5s ease-in-out, transform 0.3s ease;
+    cursor: pointer;
+}
+
+.imghover {
+    opacity: 0.3;
+}
+
+.album-title {
+    cursor: pointer;
+    font-size: 25px;
+    color: #eeeeee;
+    font-weight: normal;
+    margin-top: 5px;
+    padding: 0 5px;
+    word-wrap: break-word;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    transition: all 0.5s ease-in-out;
+}
+
+.hover {
+    transform: scale(100%) translateY(-230%);
+}
+
+.albumCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   padding: 150px 100px 50px 100px;
+    background-color: #1b1b1b;
+}
+
+.albumImage {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-right: 40px; 
+}
+
+.albumDetailsWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.albumTitle {
+    color: white;
+    font-weight: normal;
+    font-size: 60px;
+    margin: 5px;
+}
+
+.albumDescription {
+    margin: 7px 0;
+    color: #ddd;
+    line-height: 1.6;
+    max-width: 800px;
+}
+
+.albumDetails {
+    font-size: 18px;
+    color: #ccc;
+    margin-bottom: 20px;
+}
+
+.musics {
+    border-radius: 20px;
+    position: relative;
+    left: 15vw;
+    background-color: #222222;
+    width: 70vw;
+    padding: 20px;
+    margin-top: 30px;
+    margin-bottom: 15vh;
+}
+
+.musics .music {
+    align-self: stretch;
+    color: #fff;
+    font-size: 25px;
+    padding: 5px 10px;
+    border-bottom: 1px solid #444;
+    margin: 10px 0;
+    transition: background 0.3s;
+    letter-spacing: .7px;
+}
+
+.musics .music:hover {
+    background-color: #333;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 14px;
+    color: #aaaaaa;
+    background-color: rgba(255, 255, 255, .93);
+    bottom: 0;
+    position: fixed;
+    height: 3rem;
+    width: 100%;
+}

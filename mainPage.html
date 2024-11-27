@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="styles.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <a href="mainPage.html">OWEN</a>
+        <a href="albums.html">ALBUMS</a>
+    </header>
+    <main>
+        <section class="section" id="section1">
+            <img src="./img/owen main.png" alt="mainPage" class="mainPage">
+        </section>
+
+        <section class="section" id="section2">
+            <div class="preview">
+                <img src="./img/preview1.png" alt=" ">
+                <div>
+                    <h1>2017</h1>
+                    <p>P.O.E.M.</p>
+                    <a href="/musics.html?data=P.O.E.M.">Go to P.O.E.M.</a>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section" id="section3">
+            <div class="preview">
+                <img src="./img/preview2.png" alt=" ">
+                <div>
+                    <h1>Glendale</h1>
+                    <p>PROBLEMATIC</p>
+                    <a href="/musics.html?data=PROBLEMATIC">GO TO PROBLEMATIC</a>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section" id="section4">
+            <div class="preview">
+                <img src="./img/preview3.png" alt=" ">
+                <div>
+                    <h1>Mac Miller</h1>
+                    <p>B.O.Y.</p>
+                    <a href="/musics.html?data=B.O.Y.">GO TO B.O.Y.</a>
+                </div>
+            </div>
+        </section>        
+    </main>
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+    const sections = document.querySelectorAll('.section');
+    let currentSectionIndex = 0;
+    let isScrolling = false;
+    let prevSectionIndex = 0;
+
+    const imgs = document.querySelectorAll('.section img')
+
+    const handleScroll = (event) => {
+        if (isScrolling) {
+            event.preventDefault();
+            return;
+        }
+
+        const direction = event.deltaY > 0 ? 1 : -1;
+
+        if (direction === 1 && currentSectionIndex < sections.length - 1) {
+            currentSectionIndex++;
+        } 
+        else if (direction === -1 && currentSectionIndex > 0) {
+            currentSectionIndex--;
+        } else {
+            return;
+        }
+
+        if (currentSectionIndex !== 0) {
+            document.querySelector('header').classList.add('hide');
+        } else {
+            document.querySelector('header').classList.remove('hide');
+        }
+
+        const currentSectionImage = sections[currentSectionIndex].querySelector('img');
+        const prevSectionImage = sections[prevSectionIndex].querySelector('img');
+
+        if (prevSectionImage && prevSectionIndex !== 0) {
+            prevSectionImage.classList.add('rotate');  
+        }
+
+        if (currentSectionImage && currentSectionIndex !== 0) {
+            currentSectionImage.classList.add('rotate');  
+        } else if (currentSectionIndex === 0) {
+            currentSectionImage.classList.remove('rotate');
+        }
+
+        isScrolling = true;
+
+        sections[currentSectionIndex].scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+        });
+
+        setTimeout(() => {
+            isScrolling = false;
+            imgs[currentSectionIndex]
+        }, 800);
+
+        prevSectionIndex = currentSectionIndex;
+
+        event.preventDefault();
+    };
+
+    document.addEventListener('wheel', handleScroll, { passive: false });
+
+    setInterval(()=>{
+        for (step = 0; step < 3; step++) {
+            
+        }
+    },10)
+
+    let imgs_speed = [0,0,0]
+});
+   </script>
+</body>
+</html>
