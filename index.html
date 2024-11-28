@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OWEN</title>
+    <link rel="icon" href="./img/EE.png">
     <link href="styles.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,7 +26,9 @@
                 <div>
                     <h1>2017</h1>
                     <p>P.O.E.M.</p>
-                    <a href="/musics.html?data=P.O.E.M.">Go to P.O.E.M.</a>
+                    <div class="album-link" onclick="location.href='/musics.html?data=P.O.E.M.'">
+                        <a>Go to P.O.E.M.</a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -34,9 +37,11 @@
             <div class="preview">
                 <img src="./img/preview2.png" alt=" ">
                 <div>
-                    <h1>Glendale</h1>
+                    <h1>GLENDALE</h1>
                     <p>PROBLEMATIC</p>
-                    <a href="/musics.html?data=PROBLEMATIC">GO TO PROBLEMATIC</a>
+                    <div class="album-link" onclick="location.href='/musics.html?data=PROBLEMATIC'">
+                        <a>GO TO PROBLEMATIC</a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -45,21 +50,29 @@
             <div class="preview">
                 <img src="./img/preview3.png" alt=" ">
                 <div>
-                    <h1>Mac Miller</h1>
-                    <p>B.O.Y.</p>
-                    <a href="/musics.html?data=B.O.Y.">GO TO B.O.Y.</a>
+                    <h1>DIAMONDS</h1>
+                    <p>P.O.E.M. II</p>
+                    <div class="album-link" onclick="location.href='/musics.html?data=P.O.E.M._II'">
+                        <a>GO TO P.O.E.M. II</a>
+                    </div>
                 </div>
             </div>
-        </section>        
+            <div class="albumLink" onclick="location.href='/albums.html'">
+                <a>GO TO ALBUMS</a>
+            </div>
+        </section>
+        
     </main>
     <script>
-    document.addEventListener("DOMContentLoaded", () => {
+        document.addEventListener("DOMContentLoaded", () => {
     const sections = document.querySelectorAll('.section');
     let currentSectionIndex = 0;
     let isScrolling = false;
     let prevSectionIndex = 0;
 
-    const imgs = document.querySelectorAll('.section img')
+    const imgs = document.querySelectorAll('.section img');
+    const rotationSpeed = 0.5; 
+    let rotationAngles = new Array(imgs.length).fill(0); 
 
     const handleScroll = (event) => {
         if (isScrolling) {
@@ -71,8 +84,7 @@
 
         if (direction === 1 && currentSectionIndex < sections.length - 1) {
             currentSectionIndex++;
-        } 
-        else if (direction === -1 && currentSectionIndex > 0) {
+        } else if (direction === -1 && currentSectionIndex > 0) {
             currentSectionIndex--;
         } else {
             return;
@@ -84,17 +96,26 @@
             document.querySelector('header').classList.remove('hide');
         }
 
-        const currentSectionImage = sections[currentSectionIndex].querySelector('img');
-        const prevSectionImage = sections[prevSectionIndex].querySelector('img');
+        const prevSectionImage = sections[prevSectionIndex]?.querySelector('img');
+        const currentSectionImage = sections[currentSectionIndex]?.querySelector('img');
 
         if (prevSectionImage && prevSectionIndex !== 0) {
-            prevSectionImage.classList.add('rotate');  
+            prevSectionImage.style.transition = "transform 0.5s ease";
+            prevSectionImage.style.transform = "rotate(0deg)";
+
+            setTimeout(() => {
+                prevSectionImage.classList.remove('rotate');
+                setTimeout(() => {
+                    prevSectionImage.style.transition = ""; 
+                    prevSectionImage.classList.add('rotate');
+                }, 500);
+            }, 500);
         }
 
         if (currentSectionImage && currentSectionIndex !== 0) {
-            currentSectionImage.classList.add('rotate');  
+            currentSectionImage.classList.add('rotate');
         } else if (currentSectionIndex === 0) {
-            currentSectionImage.classList.remove('rotate');
+            currentSectionImage?.classList.remove('rotate');
         }
 
         isScrolling = true;
@@ -106,7 +127,6 @@
 
         setTimeout(() => {
             isScrolling = false;
-            imgs[currentSectionIndex]
         }, 800);
 
         prevSectionIndex = currentSectionIndex;
@@ -116,14 +136,18 @@
 
     document.addEventListener('wheel', handleScroll, { passive: false });
 
-    setInterval(()=>{
-        for (step = 0; step < 3; step++) {
-            
-        }
-    },10)
+    const rotatingImgs = Array.from(imgs).filter(img => !img.closest('#section1'));
 
-    let imgs_speed = [0,0,0]
+    const rotateImages = () => {
+        rotatingImgs.forEach((img, index) => {
+            const imgIndex = Array.from(imgs).indexOf(img);
+            rotationAngles[imgIndex] += rotationSpeed;
+            img.style.transform = `rotate(${rotationAngles[imgIndex]}deg)`;
+        });
+        requestAnimationFrame(rotateImages);
+    };
+
+    rotateImages();
 });
-   </script>
-</body>
-</html>
+    </script>
+    </html>
