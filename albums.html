@@ -5,17 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OWEN Discography</title>
     <link rel="icon" href="./img/EE.png">
+    <script src="https://kit.fontawesome.com/50af852ed4.js" crossorigin="anonymous"></script>
     <link href="styles.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-    <style>
-        .korean {
-            font-weight: 550;
-            font-size: 21px;
-            margin-top: -7px;
-        }
-    </style>
 </head>
 <body>
     <header>
@@ -26,123 +20,26 @@
     <div class="albums">
         
     </div>
-    <footer>hello</footer>
+    <footer>
+        <div class="music-player">
+            <div class="album-info">
+                <img class="footer-album-img" src="/img/owen.png">
+                <div class="footer-album-details">
+                    <p class="footer-music-title">THIS IS OWEN</p>
+                    <p class="footer-album-title">OWEN'S Discography</p>
+                </div>
+            </div>
+            <div class="control-buttons">
+                <button class="control-btn"><i class="fa-solid fa-backward-step"></i></button>
+                <button class="control-btn"><i class="fa-solid fa-circle-play"></i></button>
+                <button class="control-btn"><i class="fa-solid fa-forward-step"></i></button>
+            </div>
+            <input type="range" class="seek-bar" min="0" max="100" value="0">
+            <audio id="audio-player" controls></audio>
+            <audio src="/audio/POEM/11inMorning.mp3"></audio>
+        </div>
+    </footer>  
 </body>
-<script>
-    const albumInfo = {
-    'P.O.E.M.': {
-        title: 'P.O.E.M.',
-        image: './img/album/POEM.png',
-    },
-    'CITY': {
-        title: 'CITY',
-        image: './img/album/CITY.png',
-    },
-    'PROBLEMATIC': {
-        title: 'PROBLEMATIC',
-        image: './img/album/PROBLEMATIC.png',
-    },
-    'CHANGES': {
-        title: 'CHANGES',
-        image: './img/album/CHANGES.png',
-    },
-    'P.O.E.M._II': {
-        title: 'P.O.E.M. II',
-        image: './img/album/POEM II.png',
-    },
-    'SMILE': {
-        title: 'SMILE',
-        image: './img/album/SMILE.png',
-    },
-    'B.O.Y.': {
-        title: 'B.O.Y.',
-        image: './img/album/BOY.png',
-    },
-    'P.O.E.M._III': {
-        title: 'P.O.E.M. III',
-        image: './img/album/POEM III.png',
-    },
-    'CRY': {
-        title: 'CRY',
-        image: './img/album/CRY.png',
-    },
-    'P.O.E.M._IV': {
-        title: 'P.O.E.M. IV',
-        image: './img/album/POEM IV.png',
-    },
-    'REDRUM': {
-        title: 'REDRUM',
-        image: './img/album/REDRUM.png',
-    },
-    'P.O.E.M._V': {
-        title: 'P.O.E.M. V',
-        image: './img/album/POEM V.png',
-    }
-};
-
-const albumsContainer = document.querySelector('.albums');
-
-function applyFontBasedOnLanguage(element) {
-    const text = element.textContent;
-    const splitText = text.split(/([\u3131-\uD79D]+)/g);
-    element.innerHTML = '';
-
-    splitText.forEach(part => {
-        const span = document.createElement('span');
-        if (/[\u3131-\uD79D]/.test(part)) {
-            span.style.fontFamily = "'Inter', sans-serif";
-            span.className = 'korean';
-        } else {
-            span.style.fontFamily = "'Bebas Neue', sans-serif";
-            span.className = 'english';
-        }
-        span.textContent = part;
-        element.appendChild(span);
-    });
-}
-
-Object.keys(albumInfo).forEach(albumClass => {
-    const album = document.createElement('div');
-    album.classList.add('album');
-
-    const albumImg = document.createElement('img');
-    albumImg.classList.add(albumClass);
-    albumImg.src = albumInfo[albumClass].image;
-
-    const albumTitle = document.createElement('div');
-    albumTitle.classList.add('album-title');
-    albumTitle.textContent = albumInfo[albumClass].title;
-
-    applyFontBasedOnLanguage(albumTitle);
-
-    album.appendChild(albumImg);
-    album.appendChild(albumTitle);
-    albumsContainer.appendChild(album);
-
-    albumImg.addEventListener('click', () => {
-        const valueToSend = encodeURIComponent(albumClass);
-        window.location.href = `musics.html?data=${valueToSend}`;
-    });
-    albumTitle.addEventListener('click', () => {
-        const valueToSend = encodeURIComponent(albumClass);
-        window.location.href = `musics.html?data=${valueToSend}`;
-    });
-    albumImg.addEventListener('mouseover', () => {
-        albumTitle.classList.add('hover');
-        albumImg.classList.add('imghover');
-    });
-    albumImg.addEventListener('mouseout', () => {
-        albumTitle.classList.remove('hover');
-        albumImg.classList.remove('imghover');
-    });
-    albumTitle.addEventListener('mouseover', () => {
-        albumTitle.classList.add('hover');
-        albumImg.classList.add('imghover');
-    });
-    albumTitle.addEventListener('mouseout', () => {
-        albumTitle.classList.remove('hover');
-        albumImg.classList.remove('imghover');
-    });
-});
-</script>
+<script src="/scripts/albums.js"></script>
+<script src="/scripts/play-music.js"></script>
 </html>

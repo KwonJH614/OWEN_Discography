@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Album Details</title>
+    <script src="https://kit.fontawesome.com/50af852ed4.js" crossorigin="anonymous"></script>
     <link rel="icon" href="./img/EE.png">
     <link href="styles.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,168 +30,43 @@
     </header>
     <div class="albumCenter">
         <div class="albumInfoWrapper">
-            <img class="albumImage" alt="Album Cover">
-            <h1 class="albumTitle"></h1>
+            <img class="albumImage" alt="Album Cover">  
+            <div class="albumTitleWrapper">
+                <h1 class="albumTitle"></h1>
+                <a class="play-album-btn">
+                    <i class="fa-solid fa-circle-play"></i>
+                </a>
+            </div>
             <div class="albumDetailsWrapper">
                 <p class="albumDescription"></p>
                 <p class="albumDetails"></p>
             </div>
         </div>
     </div>
-    <div class="musics"></div>
-    <footer>hello</footer>
+    <div class="musics-container">
+        <div class="musics"></div>
+        <h1 class="containerTitle"></h1>
+        <img class="containerImage">
+    </div>
+    <footer>
+        <div class="music-player">
+            <div class="album-info">
+                <img class="footer-album-img" src="/img/owen.png">
+                <div class="footer-album-details">
+                    <p class="footer-music-title">THIS IS OWEN</p>
+                    <p class="footer-album-title">OWEN'S Discography</p>
+                </div>
+            </div>
+            <div class="control-buttons">
+                <button class="control-btn"><i class="fa-solid fa-backward-step"></i></button>
+                <button class="control-btn"><i class="fa-solid fa-circle-play"></i></button>
+                <button class="control-btn"><i class="fa-solid fa-forward-step"></i></button>
+            </div>
+            <input type="range" class="seek-bar" min="0" max="100" value="0">
+            <audio id="audio-player" controls></audio>
+        </div>
+    </footer>    
 </body>
-<script>
-const urlParams = new URLSearchParams(window.location.search);
-const receivedData = urlParams.get('data') || 'No data received';
-
-const albumData = {
-    'P.O.E.M.': {
-        titles: ['1. Reasons', '2. Puzzle (Feat. Paloalto, Okasian)', '3. 2017', '4. mmm (Feat. nafla)', '5. 작업 (Feat. Loopy, pH-1)', '6. Hip Hop', '7. 연예인', '8. M.O.N.E.Y. (Money Over Nature Eating Youth)', '9. 긍정 (Feat. ELO, L.I.V.E.)', '10. 11 in morning'],
-        image: './img/album/POEM.png',
-        description: '래퍼의 생각은 가사를 통해 드러난다. 오왼 오바도즈는 가사 한 줄 허투루 내뱉지 않는다. 단어 하나하나에 심혈을 기울여 탄생한 가사에는 오왼 오바도즈의 진정성, 진중한 태도가 묻어난다.',
-        date: '2016.01.15',
-        trackCount: 10,
-        duration: '36:32'
-    },
-    'CITY': {
-        titles: ['1. CITY'],
-        image: './img/album/CITY.png',
-        description: 'Owen Ovadoz goes to LA, “City” 캘리포니아를 거점으로 활동해 온 아티스트들이 뭉쳐 설립한 독립 레이블 메킷레인 (MKIT RAIN)에 새로운 둥지를 틀게 된 계기와 그들과 함께 LA를 누비던 당시의 느낌을 되살려 표현한 곡이다.',
-        date: '2016.03.14',
-        trackCount: 1,
-        duration: '03:01'
-    },
-    'PROBLEMATIC': {
-        titles: ['1. Kurt Cobain', '2. 2005 (feat. DJ Tiz)', '3. Youth', '4. Yellow Iverson', '5. Can I Get The Silver One Please', '6. Camel Crush', '7. Peter', '8. Glendale', '9. !@#$ (feat. lee ba da)', '10. My Amy (feat. lee ba da)', '11. ostentaion (feat. Neil)', '12. MKIT RAIN', '13. FOG (feat. AP)', '14. CLOUD 9 (feat. pH-1)', '15. POSING (feat. Thama)', '16. BACK THEN (feat. Don Malik)'],
-        image: './img/album/PROBLEMATIC.png',
-        description: '그의 유니크한 목소리 톤과 붐뱁에 특화된 자신만의 느낌도 인상적이지만 지금의 시대상과 개인의 아픔, 문제 많은 자신에 관해 솔직하게 이야기하는 그의 가사에 집중해서 들어 보길 바란다.',
-        date: '2017.08.27',
-        trackCount: 18,
-        duration: '45:34'
-    },
-    'CHANGES': {
-        titles: ['1. Light my problems away', '2. Special', '3. Daily routine', '4. hunnit$', '5. incomplete (feat. pH-1)', '6. ticktock', '7. changes (Feat. Loopy)', '8. forthenight', '9. player\'s passionate (Feat. EK, Yohan)', '10. dirt (Feat. pH-1)', '11. you ain\'t fly', '12. MAMA'],
-        image: './img/album/CHANGES.png',
-        description: '앨범의 주제는 제목 그대로  \'변화\' 가 중점이다. 전작인 Problematic 에서 문제 많은 자신이 변화하겠다는 마음이 담긴 앨범이다. 스스로의 삶에 일으킨 변화를 토대로 하되 트랙마다 주제는 달리 했다.',
-        date: '2018.04.20',
-        trackCount: 12,
-        duration: '46:30'
-    },
-    'P.O.E.M._II': {
-        titles: ['1. spread love', '2. night ride', '3. Diamonds', '4. foolish heart', '5. 4youreyezonly', '6. pretty Jane', '7. what the fun', '8. away (feat. nafla)', '9. Holy', '10. flex (feat. Young West)', '11. possession', '12. thoughts'],
-        image: './img/album/POEM II.png',
-        description: '많은 대중들에게 명반으로 인정받은 P.O.E.M.의 두 번째 시리즈다. \'P.O.E.M.\' 은  \'Piece Of Evolutionary Mind\' 의 줄임말로, 이 앨범을 통해 오왼 오바도즈는 자신과 그의 가족, 사랑, 희로애락, 생각, 감정 등 모든 부분에 대해 이야기를 이어나간다.',
-        date: '2019.03.19',
-        trackCount: 12,
-        duration: '44:47'
-    },
-    'SMILE' : {
-        titles : ['1. crossroads', '2. run', '3. sadderday (feat. youra, hyngsn)', '4. questions', '5. cubanlink (feat. Mckdaddy)', '6. lofi', '7. gimmick (feat. BRADYSTREET, LO VOLF)', '8. survive', '9. makaveli', '10. lane (feat. pH-1)', '11. amazing', '12. 15 minutes of fame', '13. down & low', '14. her (feat. niahn)', '15. funk with me', '16. love & hate'],
-        image : './img/album/SMILE.png',
-        description: 'Smile은 오왼 오바도즈에서 오바도즈를 뺀 오왼으로서의 첫 앨범이다. \" 오왼 오바도즈는 선과 악의 양면성을 담은 이름이에요. ‘오른쪽 뺨을 때리면 왼뺨도 대라’라는 성경구절에서 따온 ‘오왼’은 선이고, ‘과다 복용’을 뜻하는 ‘오바도즈’는 악이에요. 하지만 이제는 내 안의 부정적인 면은 지워내고, 그냥 오왼으로서 좀 더 큰 그릇이 됐음을 보여주고 싶었어요. \"',
-        date: '2019.11.14',
-        trackCount: 16,
-        duration: '54:18'
-    },
-    'B.O.Y.' : {
-        titles : ['1. LOVE', '2. LOVIN\'', '3. GIRLS', '4. INVITATION', '5. PRICELESS', '6. MAC MILLER', '7. WORK', '8. SAVANA', '9. LUST IN SEOUL', '10. SOMETHING'],
-        image : './img/album/BOY.png',
-        description: ' "고마워 도현아 Because Of You" 과분한 사랑을 받은 소년이 남자가 되어가는 과정을 그린 앨범이다.',
-        date: '2020.10.08',
-        trackCount: 10,
-        duration: '28:56'
-    },
-    'P.O.E.M._III' : {
-        titles : ['1. SNOW-WHITE', '2. BOUNCE BACK', '3. ONE SHOT', '4. HIP HOP II', '5. GO BACK', '6. TODAY', '7. ROSE THAT GREW FROM CONCRETE', '8. POUR SOME', '9. WHO SHOT YA ?', '10. YOU', '11. BROWN EYES'],
-        image : './img/album/POEM III.png',
-        description: '타 아티스트의 피처링 없이 온전히 그만의 메세지를 가사로 담아냈다. 그의 장기인 이스트코스트 붐뱁의 맛을 극한으로 끌어냈다.',
-        date: '2021.04.13',
-        trackCount: 11,
-        duration: '33:55'
-    },
-    'CRY' : {
-        titles : ['1. SUBWAY', '2. JUNGLE', '3. I MEAN BUSINESS', '4. CALLING', '5. FINALLY (FEAT. MARV)', '6. POP ! (FEAT. MARV, pH-1, EK)', '7. IN THE MUD', '8. AGAINST THE ODDS', '9. BUT I STILL MISS YOU (FEAT. NIAHN)', '10. TUNNEL VISION', '11. CRY'],
-        image : './img/album/CRY.png',
-        description: ' "앨범 Cry는 내가 쭉 고수해오던 사운드 기반의 음반이 아니다, 난 감정의 망망대해를 떠다니는 배이며, 특정 감정이 강하게 느껴질 때면 그 감정을 그릴 도화지를 찾는 화가이다. 이번 Cry는 그간 시행착오와 우여곡절을 호소하는 감정적인 앨범이다. 이해하려고 하지 말고, 내 이야기들을 함께하고, 눈을 감고 누워서 지긋이 들어보길 권장한다." ',
-        date: '2022.10.31',
-        trackCount: 11,
-        duration: '39:04'
-    },
-    'P.O.E.M._IV' : {
-        titles : ['1. 폐해', '2. WAKE UP', '3. 향정신제', '4. 도파민', '5. 중독', '6. INTERLUDE', '7. 집착', '8. 자존', '9. HIP HOP III', '10. 독재', '11. 함정', '12. WAKE UP MR.KIM', '13. 평화'],
-        image : './img/album/POEM IV.png',
-        description: '"Perception is... reality. This is the world we live in. All of these opinions and information turned livid of anger. I\'ve decided to see my world differently, it\'s vivid. Being without anger, just simply putting myself out there, I\'ve become fearless. THAT is the beauty of art, enjoy."',
-        date: '2023.03.21',
-        trackCount: 13,
-        duration: '41:33'
-    },
-    'REDRUM' : {
-        titles : ['1. REGULATION', '2. TURNS OUT (FEAT. FOGGYATTHEBOTTOM)', '3. I\'M THE ONE', '4. I WANT YOU 2 UNDERSTAND', '5. COLD HEARTED', '6. I CAN\'T (FEAT. MARV)', '7. SEATBELT', '8. FRENEMIES', '9. PRAYERS', '10. AMAZIAN'],
-        image : './img/album/REDRUM.png',
-        description: '"앞으로는 실망시키지 않는 래퍼가 될게, 믿고 도움 준 모두 너무 고마워." REDRUM은 회사와의 계약 문제로 앨범 제작에 어려움을 겪고 있던 오왼이 414명의 팬들과 함께 크라우드 펀딩을 통해 완성한 앨범이다.',
-        date: '2023.09.06',
-        trackCount: 10,
-        duration: '35:59'
-    },
-    'P.O.E.M._V': {
-        titles : [],
-        image : './img/album/POEM V.png',
-        description: '2025년 공개 될 P.O.E.M.의 다섯 번째 시리즈',
-        date: '2025. ?. ?',
-        trackCount: '? ',
-        duration: '?'
-    },
-};
-
-const selectedAlbum = albumData[receivedData];
-
-if (selectedAlbum) {
-    document.querySelector('.albumImage').src = selectedAlbum.image;
-    document.querySelector('.albumTitle').textContent = receivedData.replace(/_/g, ' ');
-    document.querySelector('.albumDescription').textContent = selectedAlbum.description;
-    document.querySelector('.albumDetails').textContent = `${selectedAlbum.date} | ${selectedAlbum.trackCount}곡 | ${selectedAlbum.duration}`;
-    
-    const musicContainer = document.querySelector('.musics');
-    selectedAlbum.titles.forEach(title => {
-        const musicItem = document.createElement('div');
-        musicItem.className = 'music';
-        musicItem.textContent = title;
-        musicContainer.appendChild(musicItem);
-    });
-} else {
-    console.error('Invalid album data or album not found');
-}
-
-function applyFontStylesToMixedText(selector) {
-    document.querySelectorAll(selector).forEach(el => {
-        if (el.tagName.toLowerCase() === 'h1') {
-            return;
-        }
-
-        const text = el.textContent;
-        const splitText = text.split(/([\u3131-\uD79D]+)/g);
-        el.innerHTML = '';
-
-        splitText.forEach(part => {
-            const span = document.createElement('span');
-            if (/[\u3131-\uD79D]/.test(part)) {
-                span.style.fontFamily = 'Inter, sans-serif';
-                span.className = 'korean';
-            } else {
-                span.style.fontFamily = 'Bebas Neue, sans-serif';
-                span.className = 'english';
-            }
-            span.textContent = part;
-            el.appendChild(span);
-        });
-    });
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    applyFontStylesToMixedText('.albumTitle');
-    applyFontStylesToMixedText('.albumDescription');
-    applyFontStylesToMixedText('.music');
-});
-</script>
+<script src="/scripts/musics.js"></script>
+<script src="/scripts/play-music.js"></script>
 </html>

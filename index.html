@@ -20,7 +20,7 @@
             <img src="./img/owen main.png" alt="mainPage" class="mainPage">
         </section>
 
-        <section class="section" id="section2">
+        <section class="section" id="section2" data-audio="/audio/preview/2017-preview.mp3">
             <div class="preview">
                 <img src="./img/preview1.png" alt=" ">
                 <div>
@@ -33,7 +33,7 @@
             </div>
         </section>
         
-        <section class="section" id="section3">
+        <section class="section" id="section3" data-audio="/audio/preview/Glendale-preview.mp3">
             <div class="preview">
                 <img src="./img/preview2.png" alt=" ">
                 <div>
@@ -46,14 +46,14 @@
             </div>
         </section>
         
-        <section class="section" id="section4">
+        <section class="section" id="section4" data-audio="/audio/preview/Brown eyes-preview.mp3">
             <div class="preview">
                 <img src="./img/preview3.png" alt=" ">
                 <div>
-                    <h1>DIAMONDS</h1>
-                    <p>P.O.E.M. II</p>
-                    <div class="album-link" onclick="location.href='musics.html?data=P.O.E.M._II'">
-                        <a>GO TO P.O.E.M. II</a>
+                    <h1>Brown Eyes</h1>
+                    <p>P.O.E.M. III</p>
+                    <div class="album-link" onclick="location.href='musics.html?data=P.O.E.M._III'">
+                        <a>GO TO P.O.E.M. III</a>
                     </div>
                 </div>
             </div>
@@ -64,90 +64,88 @@
         
     </main>
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-    const sections = document.querySelectorAll('.section');
-    let currentSectionIndex = 0;
-    let isScrolling = false;
-    let prevSectionIndex = 0;
+        
+    document.addEventListener('DOMContentLoaded', () => {
+        localStorage.removeItem('audioState');
+      });
 
-    const imgs = document.querySelectorAll('.section img');
-    const rotationSpeed = 0.5; 
-    let rotationAngles = new Array(imgs.length).fill(0); 
+    document.addEventListener("DOMContentLoaded", () => {
+        const sections = document.querySelectorAll('.section');
+        let currentSectionIndex = 0;
+        let isScrolling = false;
 
-    const handleScroll = (event) => {
-        if (isScrolling) {
-            event.preventDefault();
-            return;
-        }
+        const audioPlayer = new Audio();
+        audioPlayer.loop = true;
+        audioPlayer.volume = 0.03;
 
-        const direction = event.deltaY > 0 ? 1 : -1;
+        const handleScroll = (event) => {
+            if (isScrolling) {
+                event.preventDefault();
+                return;
+            }
 
-        if (direction === 1 && currentSectionIndex < sections.length - 1) {
-            currentSectionIndex++;
-        } else if (direction === -1 && currentSectionIndex > 0) {
-            currentSectionIndex--;
-        } else {
-            return;
-        }
+            const direction = event.deltaY > 0 ? 1 : -1;
 
-        if (currentSectionIndex !== 0) {
-            document.querySelector('header').classList.add('hide');
-        } else {
-            document.querySelector('header').classList.remove('hide');
-        }
+            if (direction === 1 && currentSectionIndex < sections.length - 1) {
+                currentSectionIndex++;
+            } else if (direction === -1 && currentSectionIndex > 0) {
+                currentSectionIndex--;
+            } else {
+                return;
+            }
 
-        const prevSectionImage = sections[prevSectionIndex]?.querySelector('img');
-        const currentSectionImage = sections[currentSectionIndex]?.querySelector('img');
+            if (currentSectionIndex !== 0) {
+                document.querySelector('header').classList.add('hide');
+            } else {
+                document.querySelector('header').classList.remove('hide');
+            }
 
-        if (prevSectionImage && prevSectionIndex !== 0) {
-            prevSectionImage.style.transition = "transform 0.5s ease";
-            prevSectionImage.style.transform = "rotate(0deg)";
+            isScrolling = true;
+
+            sections[currentSectionIndex].scrollIntoView({
+                behavior: 'smooth',
+                block: 'start',
+            });
+
+            if (audioPlayer && !audioPlayer.paused) {
+                setTimeout(() => {
+                    audioPlayer.pause();
+                }, 300);
+            }
+
+            const currentSectionAudio = sections[currentSectionIndex].getAttribute('data-audio');
+            if (currentSectionAudio) {
+                setTimeout(() => {
+                audioPlayer.src = currentSectionAudio;
+                audioPlayer.play();
+                }, 800);
+            }
 
             setTimeout(() => {
-                prevSectionImage.classList.remove('rotate');
-                setTimeout(() => {
-                    prevSectionImage.style.transition = ""; 
-                    prevSectionImage.classList.add('rotate');
-                }, 500);
-            }, 500);
-        }
+                isScrolling = false;
+            }, 800);
 
-        if (currentSectionImage && currentSectionIndex !== 0) {
-            currentSectionImage.classList.add('rotate');
-        } else if (currentSectionIndex === 0) {
-            currentSectionImage?.classList.remove('rotate');
-        }
+            event.preventDefault();
+        };
 
-        isScrolling = true;
+        document.addEventListener('wheel', handleScroll, { passive: false });
 
-        sections[currentSectionIndex].scrollIntoView({
-            behavior: 'smooth',
-            block: 'start',
-        });
+        const imgs = document.querySelectorAll('.section img');
+        const rotationSpeed = 0.5; 
+        let rotationAngles = new Array(imgs.length).fill(0); 
 
-        setTimeout(() => {
-            isScrolling = false;
-        }, 800);
+        const rotatingImgs = Array.from(imgs).filter(img => !img.closest('#section1'));
 
-        prevSectionIndex = currentSectionIndex;
+        const rotateImages = () => {
+            rotatingImgs.forEach((img, index) => {
+                const imgIndex = Array.from(imgs).indexOf(img);
+                rotationAngles[imgIndex] += rotationSpeed;
+                img.style.transform = `rotate(${rotationAngles[imgIndex]}deg)`;
+            });
+            requestAnimationFrame(rotateImages);
+        };
 
-        event.preventDefault();
-    };
-
-    document.addEventListener('wheel', handleScroll, { passive: false });
-
-    const rotatingImgs = Array.from(imgs).filter(img => !img.closest('#section1'));
-
-    const rotateImages = () => {
-        rotatingImgs.forEach((img, index) => {
-            const imgIndex = Array.from(imgs).indexOf(img);
-            rotationAngles[imgIndex] += rotationSpeed;
-            img.style.transform = `rotate(${rotationAngles[imgIndex]}deg)`;
-        });
-        requestAnimationFrame(rotateImages);
-    };
-
-    rotateImages();
-});
+        rotateImages();
+    });
     </script>
     </html>
